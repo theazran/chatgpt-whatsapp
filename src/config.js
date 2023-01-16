@@ -5,4 +5,5 @@
  */
 
 // get token here https://beta.openai.com/account/api-keys
-apiKey = ["SET_TOKEN_HERE"]; // can multiple token
+API_KEY = ["SET_TOKEN_HERE"]; // can multiple token
+URL_PROFILE_INSTAGRAM = "https://instagram.com/theazran_";

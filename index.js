@@ -71,12 +71,28 @@ async function run() {
       //   auto reply
       if (body) {
         const openAi = require("./lib/openai.js");
-        if (apiKey == "SET_TOKEN_HERE")
+        if (API_KEY == "SET_TOKEN_HERE")
           return reply(`Harap set token dahulu pada folder:\n*src/config.js*`);
+        if (body.length < 10) return reply("Minimal 10 karakter!");
         try {
+          const templateButtons = [
+            {
+              index: 1,
+              urlButton: {
+                displayText: "Follow",
+                url: URL_PROFILE_INSTAGRAM,
+              },
+            },
+          ];
           const result = await openAi(body);
+          const templateMessage = {
+            text: result.hasil,
+            //footer: 'Bantu follow Instagram admin ya, terima kasih :) ',
+            templateButtons: templateButtons,
+            viewOnce: true,
+          };
           await delay(2000);
-          await reply(result.hasil);
+          return client.sendMessage(from, templateMessage);
         } catch (e) {
           console.log(e);
           await reply("Ups.. ada yang error nih :(");
