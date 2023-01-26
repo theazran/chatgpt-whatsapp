@@ -14,7 +14,7 @@ npm start
 ## Add API Key
 
 Login atau Daftar dan ambil API Key kamu [di sini](https://beta.openai.com/account/api-keys).
-Untuk menggunakan bot ini kamu harus mengganti API Key pada [baris ini](https://github.com/theazran/chatgpt-whatsapp/blob/master/src/config.js#L8).
+Untuk menggunakan bot ini kamu harus mengganti API Key pada [baris ini](https://github.com/theazran/chatgpt-whatsapp/blob/master/.env).
 
 ## Demo
 

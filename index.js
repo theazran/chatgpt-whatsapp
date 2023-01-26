@@ -6,6 +6,9 @@ const {
 } = require("@adiwajshing/baileys");
 const logger = require("pino")({ level: "silent" });
 const { Boom } = require("@hapi/boom");
+require('dotenv').config()
+const API_KEY = process.env.API_KEY;
+const URL_PROFILE_INSTAGRAM = process.env.URL_PROFILE_INSTAGRAM;
 
 async function run() {
   const { state, saveCreds } = await useMultiFileAuthState("sessions");
@@ -47,22 +50,22 @@ async function run() {
         type === "conversation"
           ? m.message.conversation
           : type == "imageMessage"
-          ? m.message.imageMessage.caption
-          : type == "videoMessage"
-          ? m.message.videoMessage.caption
-          : type == "extendedTextMessage"
-          ? m.message.extendedTextMessage.text
-          : type == "buttonsResponseMessage"
-          ? m.message.buttonsResponseMessage.selectedButtonId
-          : type == "listResponseMessage"
-          ? m.message.listResponseMessage.singleSelectReply.selectedRowId
-          : type == "templateButtonReplyMessage"
-          ? m.message.templateButtonReplyMessage.selectedId
-          : type === "messageContextInfo"
-          ? m.message.listResponseMessage.singleSelectReply.selectedRowId ||
-            m.message.buttonsResponseMessage.selectedButtonId ||
-            m.text
-          : "";
+            ? m.message.imageMessage.caption
+            : type == "videoMessage"
+              ? m.message.videoMessage.caption
+              : type == "extendedTextMessage"
+                ? m.message.extendedTextMessage.text
+                : type == "buttonsResponseMessage"
+                  ? m.message.buttonsResponseMessage.selectedButtonId
+                  : type == "listResponseMessage"
+                    ? m.message.listResponseMessage.singleSelectReply.selectedRowId
+                    : type == "templateButtonReplyMessage"
+                      ? m.message.templateButtonReplyMessage.selectedId
+                      : type === "messageContextInfo"
+                        ? m.message.listResponseMessage.singleSelectReply.selectedRowId ||
+                        m.message.buttonsResponseMessage.selectedButtonId ||
+                        m.text
+                        : "";
       global.reply = async (text) => {
         await client.sendPresenceUpdate("composing", from);
         return client.sendMessage(from, { text }, { quoted: m });
@@ -70,10 +73,10 @@ async function run() {
 
       //   auto reply
       if (body) {
-        const openAi = require("./lib/openai.js");
-        if (API_KEY == "SET_TOKEN_HERE")
+        if (process.env.API_KEY == "SET_TOKEN_HERE")
           return reply(`Harap set token dahulu pada folder:\n*src/config.js*`);
         if (body.length < 10) return reply("Minimal 10 karakter!");
+        const openAi = require("./lib/openai.js");
         try {
           const templateButtons = [
             {
