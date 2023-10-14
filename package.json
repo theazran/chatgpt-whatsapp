@@ -1,6 +1,6 @@
 {
   "name": "chatgpt-whatsapp",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "ChatGPT - OpenAI WhatsApp",
   "main": "index.js",
   "scripts": {
