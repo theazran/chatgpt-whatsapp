@@ -11,7 +11,8 @@
   "author": "M ASRAN",
   "license": "ISC",
   "dependencies": {
-    "@adiwajshing/baileys": "^5.0.0",
+    "@adiwajshing/keyed-db": "^0.2.4",
+    "@whiskeysockets/baileys": "^6.2.1",
     "@hapi/boom": "^10.0.0",
     "dotenv": "^16.0.3",
     "qrcode-terminal": "^0.12.0",

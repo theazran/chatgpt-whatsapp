@@ -3,12 +3,11 @@ const {
   useMultiFileAuthState,
   DisconnectReason,
   delay,
-} = require("@adiwajshing/baileys");
+} = require("@whiskeysockets/baileys");
 const logger = require("pino")({ level: "silent" });
 const { Boom } = require("@hapi/boom");
 require('dotenv').config()
 const API_KEY = process.env.API_KEY;
-const URL_PROFILE_INSTAGRAM = process.env.URL_PROFILE_INSTAGRAM;
 
 async function run() {
   const { state, saveCreds } = await useMultiFileAuthState("sessions");
@@ -78,24 +77,9 @@ async function run() {
         if (body.length < 10) return reply("Minimal 10 karakter!");
         const openAi = require("./lib/openai.js");
         try {
-          const templateButtons = [
-            {
-              index: 1,
-              urlButton: {
-                displayText: "Follow",
-                url: URL_PROFILE_INSTAGRAM,
-              },
-            },
-          ];
           const result = await openAi(body);
-          const templateMessage = {
-            text: result.hasil,
-            //footer: 'Bantu follow Instagram admin ya, terima kasih :) ',
-            templateButtons: templateButtons,
-            viewOnce: true,
-          };
           await delay(2000);
-          return client.sendMessage(from, templateMessage);
+          return reply(result.hasil)
         } catch (e) {
           console.log(e);
           await reply("Ups.. ada yang error nih :(");
